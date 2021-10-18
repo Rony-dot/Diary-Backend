@@ -1,37 +1,41 @@
 package com.rony.notepadbackend.controllersimpl;
 
 import com.rony.notepadbackend.controllers.NotepadController;
-import com.rony.notepadbackend.dtos.NoteDto;
-import com.rony.notepadbackend.responseDto.NoteRespDto;
+import com.rony.notepadbackend.dtos.request.NoteRequest;
+import com.rony.notepadbackend.dtos.response.NoteResponse;
+import com.rony.notepadbackend.services.FileService;
 import com.rony.notepadbackend.services.NoteService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class NotepadControllerImpl implements NotepadController {
 
-    @Autowired
-    private NoteService noteService;
+    private final NoteService noteService;
 
-    public NotepadControllerImpl(NoteService noteService) {
+    private final FileService fileService;
+
+
+    public NotepadControllerImpl(NoteService noteService, FileService fileService) {
         this.noteService = noteService;
+        this.fileService = fileService;
     }
 
-    public ResponseEntity<Void> add(NoteDto noteDto) {
-        noteService.save(noteDto);
+    public ResponseEntity<Void> add(NoteRequest noteDto) {
+        var fileName = fileService.writeToDirectory (noteDto.getImage ());
+        noteService.save(noteDto, fileName);
         return ResponseEntity.ok().build();
     }
 
-    public ResponseEntity<List<NoteRespDto>> getAllNotes() {
-        return ResponseEntity.ok(noteService.allNotes());
+    public ResponseEntity<List<NoteResponse>> getAllNotes() {
+        var notes = noteService.allNotes();
+        return ResponseEntity.ok(notes);
     }
 
     @Override
-    public ResponseEntity<NoteRespDto> getById(long id) {
+    public ResponseEntity<NoteResponse> getById(long id) {
         return ResponseEntity.ok(noteService.getById(id));
     }
 
@@ -42,7 +46,7 @@ public class NotepadControllerImpl implements NotepadController {
     }
 
     @Override
-    public ResponseEntity<Void> update(long id, NoteDto noteDto) {
+    public ResponseEntity<Void> update(long id, NoteRequest noteDto) {
         noteService.update(id, noteDto);
         return ResponseEntity.ok().build();
     }

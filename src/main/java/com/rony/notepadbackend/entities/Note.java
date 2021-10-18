@@ -50,4 +50,7 @@ public class Note implements Serializable {
 
     @UpdateTimestamp
     private LocalDateTime updated;
+
+    @Column
+    private String imagePath;
 }
