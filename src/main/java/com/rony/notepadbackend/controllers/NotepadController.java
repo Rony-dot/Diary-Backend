@@ -1,7 +1,7 @@
 package com.rony.notepadbackend.controllers;
 
-import com.rony.notepadbackend.dtos.NoteDto;
-import com.rony.notepadbackend.responseDto.NoteRespDto;
+import com.rony.notepadbackend.dtos.request.NoteRequest;
+import com.rony.notepadbackend.dtos.response.NoteResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,18 +11,18 @@ import java.util.List;
 public interface NotepadController {
 
     @PostMapping("/add")
-    ResponseEntity<Void> add(@RequestBody NoteDto noteDto);
+    ResponseEntity<Void> add(@ModelAttribute NoteRequest noteDto);
 
     @GetMapping("/all")
-    ResponseEntity<List<NoteRespDto>> getAllNotes();
+    ResponseEntity<List<NoteResponse>> getAllNotes();
 
     @GetMapping("/{id}")
-    ResponseEntity<NoteRespDto> getById(@PathVariable long id);
+    ResponseEntity<NoteResponse> getById(@PathVariable long id);
 
     @DeleteMapping("/{id}")
     ResponseEntity<Void> deleteById(@PathVariable long id);
 
     @PutMapping("/{id}")
-    ResponseEntity<Void> update(@PathVariable long id ,@RequestBody NoteDto noteDto);
+    ResponseEntity<Void> update(@PathVariable long id ,@RequestBody NoteRequest noteDto);
 
 }
