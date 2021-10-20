@@ -23,6 +23,6 @@ public interface NotepadController {
     ResponseEntity<Void> deleteById(@PathVariable long id);
 
     @PutMapping("/{id}")
-    ResponseEntity<Void> update(@PathVariable long id ,@RequestBody NoteRequest noteDto);
+    ResponseEntity<Void> update(@PathVariable long id ,@ModelAttribute NoteRequest noteDto);
 
 }

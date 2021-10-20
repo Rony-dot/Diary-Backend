@@ -29,14 +29,16 @@ public class NoteService {
     }
 
     public List<NoteResponse> allNotes() {
-        return this.noteRepository.findAll().stream()
+        List<NoteResponse> result = this.noteRepository.findAll().stream()
                 .map(note -> {
                     var noteRespDto = new NoteResponse();
                     BeanUtils.copyProperties(note, noteRespDto);
-                    noteRespDto.setImage (fileService.readFromPath (note.getImagePath ()));
+                    noteRespDto.setImage(fileService.readFromPath(note.getImagePath()));
                     return noteRespDto;
                 })
                 .collect(Collectors.toList());
+        System.out.println(result);
+        return result;
     }
 
     public NoteResponse getById(long id) throws ResourceNotFoundException{
@@ -44,6 +46,7 @@ public class NoteService {
                 .orElseThrow(() -> new ResourceNotFoundException("Diary not found for this id :: " + id));
         var noteRespDto = new NoteResponse();
         BeanUtils.copyProperties(note, noteRespDto);
+        noteRespDto.setImage(fileService.readFromPath(note.getImagePath()));
         return noteRespDto;
     }
 
@@ -55,10 +58,11 @@ public class NoteService {
       throw new ResourceNotFoundException("Diary not found for this id :: " + id);
     }
 
-    public void update(long id, NoteRequest noteDto) throws ResourceNotFoundException{
+    public void update(long id, NoteRequest noteDto, String fileName) throws ResourceNotFoundException{
         var note =  this.noteRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Diary not found for this id :: " + id));
         BeanUtils.copyProperties(noteDto, note);
+        note.setImagePath (fileName);
         this.noteRepository.save(note);
     }
 }
