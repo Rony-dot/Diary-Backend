@@ -17,10 +17,11 @@ public class LocalFileService implements FileService{
     @Override
     public String writeToDirectory(MultipartFile multipartFile) {
         try {
-            var file = File.createTempFile(multipartFile.getName (), multipartFile.getOriginalFilename ());
+            var file = File.createTempFile( multipartFile.getName (), multipartFile.getOriginalFilename () );
             multipartFile.transferTo(file);
             Image img = ImageIO.read(file);
-            var path = System.getProperty ("user.home") + "/notepad-service/" + file.getName ();
+
+            var path = System.getProperty ("user.home") + "/" + "notepad-service" + "/" + file.getName ();
             writeImageToFile(img, path);
             return path;
         } catch (IOException e) {
@@ -30,6 +31,10 @@ public class LocalFileService implements FileService{
     }
 
     private void writeImageToFile (Image image, String path) throws IOException {
+        File dir = new File(path);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
         ImageIO.write(toBufferedImage (image), "jpg", new File (path));
     }
 
@@ -54,6 +59,7 @@ public class LocalFileService implements FileService{
 
     @Override
     public byte[] readFromPath(String path) {
+        System.out.println(path);
         try {
             var in = new FileInputStream (path);
             return IOUtils.toByteArray(in);

@@ -24,7 +24,7 @@ public class NotepadControllerImpl implements NotepadController {
     }
 
     public ResponseEntity<Void> add(NoteRequest noteDto) {
-        var fileName = fileService.writeToDirectory (noteDto.getImage ());
+        var fileName = fileService.writeToDirectory ( noteDto.getImage() );
         noteService.save(noteDto, fileName);
         return ResponseEntity.ok().build();
     }
@@ -47,7 +47,8 @@ public class NotepadControllerImpl implements NotepadController {
 
     @Override
     public ResponseEntity<Void> update(long id, NoteRequest noteDto) {
-        noteService.update(id, noteDto);
+        var fileName = fileService.writeToDirectory ( noteDto.getImage() );
+        noteService.update(id, noteDto, fileName);
         return ResponseEntity.ok().build();
     }
 }
