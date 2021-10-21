@@ -1,6 +1,7 @@
 package com.rony.notepadbackend.services;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,8 +10,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
+@Profile ({"dev"})
 @Service
-public class FileServiceImpl implements FileService{
+public class LocalFileService implements FileService{
 
     @Override
     public String writeToDirectory(MultipartFile multipartFile) {
