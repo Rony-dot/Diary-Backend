@@ -37,7 +37,6 @@ public class NoteService {
                     return noteRespDto;
                 })
                 .collect(Collectors.toList());
-        System.out.println(result);
         return result;
     }
 
