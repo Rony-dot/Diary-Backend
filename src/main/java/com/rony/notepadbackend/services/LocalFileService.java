@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
-@Profile ({"dev"})
+@Profile ({"postgres"})
 @Service
 public class LocalFileService implements FileService{
 

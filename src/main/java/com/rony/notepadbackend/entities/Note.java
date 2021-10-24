@@ -16,7 +16,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Note implements Serializable {
+public class Note extends BaseModel implements Serializable {
 
 /*
    @Id
@@ -35,21 +35,11 @@ public class Note implements Serializable {
     private UUID id;
     */
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-
     @Column
     private String title;
 
     @Column
     private String body;
-
-    @CreationTimestamp
-    private LocalDateTime created;
-
-    @UpdateTimestamp
-    private LocalDateTime updated;
 
     @Column
     private String imagePath;

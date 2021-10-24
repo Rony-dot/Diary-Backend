@@ -14,9 +14,7 @@ import java.util.List;
 public class NotepadControllerImpl implements NotepadController {
 
     private final NoteService noteService;
-
     private final FileService fileService;
-
 
     public NotepadControllerImpl(NoteService noteService, FileService fileService) {
         this.noteService = noteService;
