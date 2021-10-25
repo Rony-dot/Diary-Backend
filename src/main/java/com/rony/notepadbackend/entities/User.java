@@ -9,17 +9,18 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
-@Data
 @Getter
 @Setter
 @AllArgsConstructor
@@ -58,6 +59,8 @@ public class User{
     @NotBlank(message = "mobile is required")
     private String mobile;
 
+    @Column( name = "token")
+    private String jwtToken;
 //    @JsonDeserialize(using = LocalDateDeserializer.class)
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd ")
 //    @JsonFormat(pattern = "yyyy-MM-dd ")
@@ -76,15 +79,11 @@ public class User{
     @NotBlank(message = "hometown is required")
     private String homeTown;
 
-
-//    private String JwtToken;
-
-//    @ElementCollection(fetch = FetchType.LAZY)
-//    private List<String> roles;
+    @ElementCollection(fetch = FetchType.LAZY)
+    private List<String> roles;
 
     @OneToOne
-    @JoinColumn(name = "country_id", nullable = true)
+    @JoinColumn(name = "country_code")
 //    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
     private Country country;
-
 }

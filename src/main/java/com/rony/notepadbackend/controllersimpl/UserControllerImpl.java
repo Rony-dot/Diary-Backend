@@ -23,8 +23,6 @@ public class UserControllerImpl implements UserController {
         return ResponseEntity.ok().build();
     }
 
-
-
     @Override
     public ResponseEntity<User> getById(long id) {
         var user = userService.getById(id);

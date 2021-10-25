@@ -18,13 +18,12 @@ public class UserInfoDto {
     private String email;
     private String password;
     private String homeTown;
-    private long countryId;
+    private String countryCode;
     private String mobile;
     private String salutation;
     private String gender;
     private String dateOfBirth;
-
-//    private String jwtToken;
+    private String jwtToken;
 
     public UserInfoDto() {
     }

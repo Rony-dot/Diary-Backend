@@ -3,6 +3,7 @@ package com.rony.notepadbackend;
 import com.rony.notepadbackend.initialize.InitializeData;
 import com.rony.notepadbackend.initialize.InitializeTestData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -18,15 +19,14 @@ import org.springframework.web.filter.CorsFilter;
 
 
 @SpringBootApplication
-public class NotepadBackendApplication {
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class NotepadBackendApplication implements CommandLineRunner {
 
     @Autowired
-    private static  InitializeTestData initializeData;
+    private InitializeData initializeData;
 
     public static void main(String[] args) {
         ConfigurableApplicationContext run = SpringApplication.run(NotepadBackendApplication.class, args);
-//        InitializeTestData initializeData = run.getBean(InitializeTestData.class);
-//        initializeData.initialize();
     }
 
 
@@ -51,5 +51,10 @@ public class NotepadBackendApplication {
         source.registerCorsConfiguration("/**", configuration);
 
         return new CorsFilter(source);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        initializeData.initialize ();
     }
 }

@@ -10,13 +10,7 @@
     "gender" : "MALE",
     "homeTown" : "Noakhali",
     "dateOfBirth" : "1998-06-26",
-    "country" :    {
-      "id": 2,
-      "createdAt": "2021-10-22",
-      "updatedAt": "2021-10-22",
-      "name": "Bangladesh",
-      "countryCode": "BD"
-    }
+    "countryCode" : "BD"
   },
   {
     "name" : "MR. Rony",
@@ -29,13 +23,7 @@
     "salutation" : "MD",
     "gender" : "MALE",
     "homeTown" : "Noakhali",
-    "country" :  {
-      "id": 1,
-      "createdAt": "2021-10-22",
-      "updatedAt": "2021-10-22",
-      "name": "Malaysia",
-      "countryCode": "MAL"
-    }
+    "countryCode" :  "BD"
   },
   {
     "name" : "Rony",
@@ -48,12 +36,6 @@
     "salutation" : "MD",
     "gender" : "MALE",
     "homeTown" : "Noakhali",
-    "country" :  {
-      "id": 1,
-      "createdAt": "2021-10-22",
-      "updatedAt": "2021-10-22",
-      "name": "Malaysia",
-      "countryCode": "MAL"
-    }
+    "countryCode" : "BD"
   }
 ]

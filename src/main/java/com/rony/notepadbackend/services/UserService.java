@@ -5,6 +5,7 @@ import com.rony.notepadbackend.dtos.request.UserLoginDto;
 import com.rony.notepadbackend.entities.Role;
 import com.rony.notepadbackend.entities.User;
 import com.rony.notepadbackend.exception.ResourceNotFoundException;
+import com.rony.notepadbackend.repository.CountryRepository;
 import com.rony.notepadbackend.repository.RoleRepository;
 import com.rony.notepadbackend.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -37,6 +38,12 @@ public class UserService {
     @Autowired
     private CountryService countryService;
 
+    @Autowired
+    private CountryRepository countryRepository;
+
+    @Autowired
+    private TokenService tokenService;
+
 //    @Autowired
 //    private TokenService tokenService;
 
@@ -46,11 +53,15 @@ public class UserService {
     public void addUser(UserInfoDto userInfoDto){
         var user = new User();
         BeanUtils.copyProperties(userInfoDto,user);
-        user.setCountry(countryService.getById(userInfoDto.getCountryId()));
+        user.setCountry(countryRepository.getCountryByCountryCode (userInfoDto.getCountryCode ()));
         String dateOfBirth = userInfoDto.getDateOfBirth() == null ? "2017-11-15" : userInfoDto.getDateOfBirth();
         user.setDateOfBirth(LocalDate.parse(dateOfBirth));
         // Bcrypt password
         user.setPassword(passwordEncoder.encode(userInfoDto.getPassword()));
+        roleRepository.findByRole ("USER").ifPresent (role -> {
+            user.setRoles (List.of (role.getRole ()));
+        });
+        tokenService.generateToken (user);
         userRepository.save(user);
     }
 
@@ -63,6 +74,8 @@ public class UserService {
             if (passwordEncoder.matches(userLoginDto.getPassword(), userModel.getPassword())) {
                 var userInfoDto = new UserInfoDto();
                 BeanUtils.copyProperties(userModel, userInfoDto);
+                userInfoDto.setCountryCode (userModel.getCountry ().getCountryCode ());
+                userInfoDto.setPassword ("******");
                 return userInfoDto;
             } else {
                 throw new BadCredentialsException("Password mismatched");
