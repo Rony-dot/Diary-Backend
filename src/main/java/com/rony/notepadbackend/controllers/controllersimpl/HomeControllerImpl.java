@@ -1,4 +1,4 @@
-package com.rony.notepadbackend.controllersimpl;
+package com.rony.notepadbackend.controllers.controllersimpl;
 
 import com.rony.notepadbackend.controllers.HomeController;
 import com.rony.notepadbackend.dtos.request.UserInfoDto;
@@ -18,6 +18,8 @@ public class HomeControllerImpl implements HomeController {
 
     @Override
     public ResponseEntity<UserInfoDto> login(UserLoginDto userLoginDto) {
+        System.out.println("username "+userLoginDto.getUsername());
+        System.out.println("password "+userLoginDto.getPassword());
         return ResponseEntity.ok(userService.loginUser(userLoginDto));
     }
 

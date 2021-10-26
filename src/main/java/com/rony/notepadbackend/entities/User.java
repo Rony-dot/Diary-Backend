@@ -73,8 +73,8 @@ public class User{
     @NotBlank(message = "salutation is required")
     private String salutation;
 
-    @NotBlank(message = "hometown is required")
-    private String homeTown;
+//    @NotBlank(message = "hometown is required")
+//    private String homeTown;
 
 
 //    private String JwtToken;

@@ -31,5 +31,9 @@ public class CountryService {
         countryRepository.deleteById(id);
     }
 
+    public Country getByCountryCode(String countryCode){
+        return countryRepository.getCountryByCountryCode(countryCode);
+    }
+
 
 }

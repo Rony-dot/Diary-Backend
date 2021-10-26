@@ -46,7 +46,7 @@ public class UserService {
     public void addUser(UserInfoDto userInfoDto){
         var user = new User();
         BeanUtils.copyProperties(userInfoDto,user);
-        user.setCountry(countryService.getById(userInfoDto.getCountryId()));
+        user.setCountry(countryService.getByCountryCode(userInfoDto.getCountryCode()));
         String dateOfBirth = userInfoDto.getDateOfBirth() == null ? "2017-11-15" : userInfoDto.getDateOfBirth();
         user.setDateOfBirth(LocalDate.parse(dateOfBirth));
         // Bcrypt password
@@ -55,6 +55,7 @@ public class UserService {
     }
 
     public UserInfoDto loginUser(UserLoginDto userLoginDto){
+
         Optional<User> optionalUser = userRepository
                 .findByUsername(userLoginDto.getUsername());
 
@@ -63,6 +64,8 @@ public class UserService {
             if (passwordEncoder.matches(userLoginDto.getPassword(), userModel.getPassword())) {
                 var userInfoDto = new UserInfoDto();
                 BeanUtils.copyProperties(userModel, userInfoDto);
+                userInfoDto
+                        .setCountryCode(countryService.getById(userModel.getCountry().getId()).getCountryCode());
                 return userInfoDto;
             } else {
                 throw new BadCredentialsException("Password mismatched");

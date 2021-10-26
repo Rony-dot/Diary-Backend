@@ -1,4 +1,4 @@
-package com.rony.notepadbackend.controllersimpl;
+package com.rony.notepadbackend.controllers.controllersimpl;
 
 import com.rony.notepadbackend.controllers.NotepadController;
 import com.rony.notepadbackend.dtos.request.NoteRequest;

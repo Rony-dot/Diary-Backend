@@ -17,8 +17,8 @@ public class UserInfoDto {
     private List<String> roles;
     private String email;
     private String password;
-    private String homeTown;
-    private long countryId;
+//    private String homeTown;
+    private String countryCode;
     private String mobile;
     private String salutation;
     private String gender;
