@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 public interface NotepadController {
 
     @PostMapping("/add")
-    ResponseEntity<Void> add(@Valid @ModelAttribute NoteRequest noteDto, BindingResult error);
+    ResponseEntity<Void> add(@Valid @ModelAttribute NoteRequest noteDto, BindingResult error, HttpServletRequest request);
 
     @GetMapping("/all")
     ResponseEntity<List<NoteResponse>> getAllNotes();

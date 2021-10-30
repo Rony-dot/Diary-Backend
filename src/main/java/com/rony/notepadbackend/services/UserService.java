@@ -19,6 +19,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.Collections;
@@ -84,12 +85,8 @@ public class UserService {
 //    }
 
     public UserInfoDto loginUser(UserLoginDto userLoginDto){
-
-        Optional<User> optionalUser = userRepository
-                .findByUsername(userLoginDto.getUsername());
-
-        if (optionalUser.isPresent()) {
-            User userModel = optionalUser.get();
+      var userModel = getByUserName(userLoginDto.getUsername());
+        if (userModel != null) {
             if (passwordEncoder.matches(userLoginDto.getPassword(), userModel.getPassword())) {
                 var userInfoDto = new UserInfoDto();
                 BeanUtils.copyProperties(userModel, userInfoDto);
@@ -105,6 +102,19 @@ public class UserService {
         } else {
             log.error("invalid username : {}",userLoginDto.getUsername());
             throw new BadCredentialsException("Invalid username");
+        }
+    }
+
+    public User getByUserName(String username){
+        Optional<User> optionalUser = userRepository
+                .findByUsername(username);
+        if (optionalUser.isPresent()) {
+            User userModel = optionalUser.get();
+            return userModel;
+        }else{
+            log.error("user not found with this username : {}",username);
+            throw  new ResourceNotFoundException("user not found with this username : "+username);
+
         }
     }
 

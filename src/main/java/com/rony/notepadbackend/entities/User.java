@@ -86,4 +86,6 @@ public class User{
     @OneToOne
     @JoinColumn(name = "country_code")
     private Country country;
+
+
 }

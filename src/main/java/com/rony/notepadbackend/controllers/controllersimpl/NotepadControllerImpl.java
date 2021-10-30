@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,15 +28,14 @@ public class NotepadControllerImpl implements NotepadController {
     }
 
     @Override
-    public ResponseEntity<Void> add(@Valid NoteRequest noteDto, BindingResult error) {
+    public ResponseEntity<Void> add(@Valid NoteRequest noteDto, BindingResult error, HttpServletRequest request) {
+
         if(error.hasErrors()){
             List<ObjectError> errorList = error.getAllErrors();
             String errorStrings = "";
-
             for(ObjectError e : errorList){
                 errorStrings += e.getDefaultMessage() + "\n";
             }
-
             System.out.println(errorStrings);
             throw new DataValidationException(errorStrings);
         }
@@ -43,7 +43,8 @@ public class NotepadControllerImpl implements NotepadController {
         if(!noteDto.getImage().isEmpty()){
             fileName = fileService.writeToDirectory(noteDto.getImage());
         }
-        noteService.save(noteDto, fileName);
+        var userId = (long) request.getSession().getAttribute("user_id");
+        noteService.save(noteDto, fileName, userId);
         return ResponseEntity.ok().build();
     }
 

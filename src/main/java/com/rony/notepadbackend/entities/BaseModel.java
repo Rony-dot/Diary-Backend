@@ -10,14 +10,6 @@ import java.time.LocalDate;
 
 @MappedSuperclass
 public class BaseModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
 
-    @CreationTimestamp
-    private LocalDate createdAt;
-
-    @UpdateTimestamp
-    private LocalDate updatedAt;
 
 }

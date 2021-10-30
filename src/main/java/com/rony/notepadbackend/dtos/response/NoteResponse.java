@@ -9,4 +9,5 @@ public class NoteResponse {
     private String title;
     private String body;
     private byte[] image;
+    private long userId;
 }

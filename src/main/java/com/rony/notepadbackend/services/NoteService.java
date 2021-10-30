@@ -4,31 +4,31 @@ import com.rony.notepadbackend.dtos.response.NoteResponse;
 import com.rony.notepadbackend.entities.Note;
 import com.rony.notepadbackend.exception.ResourceNotFoundException;
 import com.rony.notepadbackend.repository.NoteRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@AllArgsConstructor
 public class NoteService {
 
     private final NoteRepository noteRepository;
     private final FileService fileService;
+    private final UserService userService;
 
-    public NoteService(NoteRepository noteRepository, FileService fileService) {
-        this.noteRepository = noteRepository;
-        this.fileService = fileService;
-    }
-
-    public void save(NoteRequest noteDto, String fileName) {
+    public void save(NoteRequest noteDto, String fileName, long userId) {
         var note = new Note();
         BeanUtils.copyProperties(noteDto, note);
         note.setImagePath (fileName);
+        note.setUser(userService.getById( userId ));
         this.noteRepository.save(note);
-        log.info("saved note : {}", noteDto.getTitle());
+        log.info("saved note : {}, for user id : {}", noteDto.getTitle(), userId);
     }
 
     public List<NoteResponse> allNotes() {
@@ -37,6 +37,7 @@ public class NoteService {
                     var noteRespDto = new NoteResponse();
                     BeanUtils.copyProperties(note, noteRespDto);
                     noteRespDto.setImage(fileService.readFromPath(note.getImagePath()));
+                    noteRespDto.setUserId(note.getUser().getId());
                     return noteRespDto;
                 })
                 .collect(Collectors.toList());
@@ -50,6 +51,7 @@ public class NoteService {
         var noteRespDto = new NoteResponse();
         BeanUtils.copyProperties(note, noteRespDto);
         noteRespDto.setImage(fileService.readFromPath(note.getImagePath()));
+        noteRespDto.setUserId(note.getUser().getId());
         log.info("getting note {}, of id {}", note.getTitle(), id);
         return noteRespDto;
     }

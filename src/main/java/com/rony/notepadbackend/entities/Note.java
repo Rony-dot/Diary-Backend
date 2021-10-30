@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -18,7 +19,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Note extends BaseModel implements Serializable {
+public class Note implements Serializable {
 
 /*
    @Id
@@ -38,6 +39,16 @@ public class Note extends BaseModel implements Serializable {
     */
 
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long id;
+
+    @CreationTimestamp
+    private LocalDate createdAt;
+
+    @UpdateTimestamp
+    private LocalDate updatedAt;
+
     @NotBlank(message = "title cannot be null")
     @Size(min = 3, max = 35, message
             = "Title must be between 3 and 30 characters")
@@ -52,4 +63,8 @@ public class Note extends BaseModel implements Serializable {
 
     @Column
     private String imagePath;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
