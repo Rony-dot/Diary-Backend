@@ -1,5 +1,6 @@
 package com.rony.notepadbackend.services;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import java.io.*;
 
 @Profile ({"postgres"})
 @Service
+@Slf4j
 public class LocalFileService implements FileService{
 
     @Override
@@ -25,7 +27,7 @@ public class LocalFileService implements FileService{
             writeImageToFile(img, path);
             return path;
         } catch (IOException e) {
-            e.printStackTrace ();
+           log.error("error in saving file to directory");
         }
         return null;
     }
@@ -36,6 +38,7 @@ public class LocalFileService implements FileService{
             dir.mkdirs();
         }
         ImageIO.write(toBufferedImage (image), "jpg", new File (path));
+        log.info("file is saved successfully at path : {}", path);
     }
 
     private BufferedImage toBufferedImage(Image img) {
@@ -59,12 +62,11 @@ public class LocalFileService implements FileService{
 
     @Override
     public byte[] readFromPath(String path) {
-        System.out.println(path);
         try {
             var in = new FileInputStream (path);
             return IOUtils.toByteArray(in);
         } catch (IOException e) {
-            e.printStackTrace ();
+            log.error("error in reading file from path : {}", path);
         }
         return null;
     }

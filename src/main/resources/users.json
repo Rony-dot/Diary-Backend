@@ -1,7 +1,7 @@
 [
   {
     "name" : "Md. Rony",
-    "email" : "rakibulhassan.rony123@gmail.com",
+    "email" : "rony@gmail.com",
     "password" : "1234",
     "mobile" : "01001010010",
     "age" : "23",
@@ -10,17 +10,13 @@
     "gender" : "MALE",
     "homeTown" : "Noakhali",
     "dateOfBirth" : "1998-06-26",
-    "country" :    {
-      "id": 2,
-      "createdAt": "2021-10-22",
-      "updatedAt": "2021-10-22",
-      "name": "Bangladesh",
-      "countryCode": "BD"
-    }
+    "countryCode" : "BD",
+    "roles" : [ "ADMIN",  "USER", "EDITOR" ]
   },
+
   {
     "name" : "MR. Rony",
-    "email" : "rony@gmail.com",
+    "email" : "rony1@gmail.com",
     "password" : "1234",
     "mobile" : "01001010010",
     "dateOfBirth" : "1998-06-26",
@@ -29,17 +25,12 @@
     "salutation" : "MD",
     "gender" : "MALE",
     "homeTown" : "Noakhali",
-    "country" :  {
-      "id": 1,
-      "createdAt": "2021-10-22",
-      "updatedAt": "2021-10-22",
-      "name": "Malaysia",
-      "countryCode": "MAL"
-    }
+    "countryCode" :  "BD",
+    "roles" : ["USER"]
   },
   {
     "name" : "Rony",
-    "email" : "rony@gmail.com",
+    "email" : "rony2@gmail.com",
     "password" : "1234",
     "mobile" : "01001010010",
     "dateOfBirth" : "1998-06-26",
@@ -48,12 +39,23 @@
     "salutation" : "MD",
     "gender" : "MALE",
     "homeTown" : "Noakhali",
-    "country" :  {
-      "id": 1,
-      "createdAt": "2021-10-22",
-      "updatedAt": "2021-10-22",
-      "name": "Malaysia",
-      "countryCode": "MAL"
-    }
+    "countryCode" : "BD",
+    "roles" : ["USER"]
+  },
+
+  {
+    "name" : "Admin",
+    "email" : "admin@gmail.com",
+    "password" : "1234",
+    "mobile" : "01001010010",
+    "dateOfBirth" : "1998-06-26",
+    "age" : "23",
+    "username" : "admin",
+    "salutation" : "MD",
+    "gender" : "MALE",
+    "homeTown" : "Noakhali",
+    "countryCode" : "BD",
+    "roles" : ["ADMIN"]
   }
+
 ]

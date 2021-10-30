@@ -6,11 +6,13 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Entity(name = "DiaryBook")
+@Entity(name = "tbl_DiaryBook")
 @Getter
 @Setter
 @Builder
@@ -35,9 +37,16 @@ public class Note extends BaseModel implements Serializable {
     private UUID id;
     */
 
+
+    @NotBlank(message = "title cannot be null")
+    @Size(min = 3, max = 35, message
+            = "Title must be between 3 and 30 characters")
     @Column
     private String title;
 
+    @NotBlank(message = "body cannot be null")
+    @Size(min = 3, message
+            = "body at least 3 characters")
     @Column
     private String body;
 

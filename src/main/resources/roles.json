@@ -1,8 +1,17 @@
 [
   {
-    "role": "ADMIN"
+    "name": "ADMIN"
   },
   {
-    "role": "USER"
+    "name": "USER"
+  },
+  {
+    "name": "EDITOR"
+  },
+  {
+    "name": "SUPER_ADMIN"
+  },
+  {
+    "name": "GUEST"
   }
 ]

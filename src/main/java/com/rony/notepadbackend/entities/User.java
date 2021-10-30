@@ -9,17 +9,22 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
-@Table(name = "users")
-@Data
+@Table(name = "tbl_users")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -37,8 +42,8 @@ public class User{
     private LocalDate updatedAt;
 
     @NotBlank(message = "name cannot be null")
-    @Size(min = 4, max = 10, message
-            = "Name must be between 4 and 10 characters")
+    @Size(min = 3, max = 35, message
+            = "Name must be between 3 and 30 characters")
     private String name;
 
     private int age;
@@ -49,20 +54,19 @@ public class User{
     private String email;
 
     @NotBlank(message = "username is required")
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
 
     @NotBlank(message = "password is required")
+    @Column(columnDefinition="TEXT")
     private String password;
 
     @NotBlank(message = "mobile is required")
     private String mobile;
 
-//    @JsonDeserialize(using = LocalDateDeserializer.class)
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd ")
-//    @JsonFormat(pattern = "yyyy-MM-dd ")
-//    @JsonDeserialize(using = LocalDateDeserializer.class)
-//    @JsonSerialize(using = LocalDateSerializer.class)
+    @Column( name = "token", columnDefinition = "TEXT")
+    private String jwtToken;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "birth_date")
     private LocalDate dateOfBirth;
@@ -73,18 +77,13 @@ public class User{
     @NotBlank(message = "salutation is required")
     private String salutation;
 
-//    @NotBlank(message = "hometown is required")
-//    private String homeTown;
+//    @ManyToMany(fetch = LAZY)
+//    private Collection<Role> roles = new ArrayList<>();
 
-
-//    private String JwtToken;
-
-//    @ElementCollection(fetch = FetchType.LAZY)
-//    private List<String> roles;
+    @ElementCollection(fetch = FetchType.LAZY)
+    private List<String> roles = new ArrayList<>();
 
     @OneToOne
-    @JoinColumn(name = "country_id", nullable = true)
-//    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
+    @JoinColumn(name = "country_code")
     private Country country;
-
 }

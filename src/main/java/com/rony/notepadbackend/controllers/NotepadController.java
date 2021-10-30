@@ -3,15 +3,17 @@ package com.rony.notepadbackend.controllers;
 import com.rony.notepadbackend.dtos.request.NoteRequest;
 import com.rony.notepadbackend.dtos.response.NoteResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping("/notes")
 public interface NotepadController {
 
     @PostMapping("/add")
-    ResponseEntity<Void> add(@ModelAttribute NoteRequest noteDto);
+    ResponseEntity<Void> add(@Valid @ModelAttribute NoteRequest noteDto, BindingResult error);
 
     @GetMapping("/all")
     ResponseEntity<List<NoteResponse>> getAllNotes();
@@ -23,6 +25,6 @@ public interface NotepadController {
     ResponseEntity<Void> deleteById(@PathVariable long id);
 
     @PutMapping("/{id}")
-    ResponseEntity<Void> update(@PathVariable long id ,@ModelAttribute NoteRequest noteDto);
+    ResponseEntity<Void> update(@PathVariable long id ,@Valid @ModelAttribute NoteRequest noteDto, BindingResult error);
 
 }
