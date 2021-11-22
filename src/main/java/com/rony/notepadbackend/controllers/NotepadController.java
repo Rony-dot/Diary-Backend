@@ -2,6 +2,7 @@ package com.rony.notepadbackend.controllers;
 
 import com.rony.notepadbackend.dtos.request.NoteRequest;
 import com.rony.notepadbackend.dtos.response.NoteResponse;
+import io.swagger.annotations.Api;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
+@Api(tags = "Notes", value = "Notes")
 @RequestMapping("/notes")
 public interface NotepadController {
 

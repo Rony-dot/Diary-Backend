@@ -29,7 +29,7 @@ public class CountryControllerImpl implements CountryController {
     }
 
     @Override
-    public ResponseEntity<Country> getById(long id) {
+    public ResponseEntity<Country> getById(Long id) {
         return ResponseEntity.ok(countryService.getById(id));
     }
 

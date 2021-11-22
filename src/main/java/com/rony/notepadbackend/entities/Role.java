@@ -26,7 +26,7 @@ public class Role implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
+    private Long id;
 
     @CreationTimestamp
     private LocalDate createdAt;

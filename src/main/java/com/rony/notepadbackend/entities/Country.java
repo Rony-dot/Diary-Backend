@@ -17,7 +17,7 @@ import java.time.LocalDate;
 public class Country{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
+    private Long id;
 
     @CreationTimestamp
     private LocalDate createdAt;
