@@ -1,12 +1,10 @@
-package com.rony.notepadbackend.config;
+package com.rony.notepadbackend.config.swagger;
 
-import com.rony.notepadbackend.controllers.CountryController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
@@ -15,7 +13,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 @Component
 @EnableSwagger2
@@ -26,7 +23,7 @@ public class SwaggerConfig {
 
     public ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("Diary Service")
-                .description("Demo application")
+                .description("Diary application")
                 .version("v1")
                 .contact(new Contact("Rony", "rony.com", "rony@gmail.com"))
                 .build();
@@ -53,7 +50,7 @@ public class SwaggerConfig {
         return new ApiKey("Access Token", AUTHORIZATION_HEADER, "header");
     }
 
-    private springfox.documentation.spi.service.contexts.SecurityContext securityContext() {
+    private SecurityContext securityContext() {
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
                 .build();

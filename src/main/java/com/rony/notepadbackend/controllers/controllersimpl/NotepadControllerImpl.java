@@ -40,7 +40,7 @@ public class NotepadControllerImpl implements NotepadController {
             throw new DataValidationException(errorStrings);
         }
         String fileName = "";
-        if(!noteDto.getImage().isEmpty()){
+        if(noteDto.getImage() != null && !noteDto.getImage().isEmpty()){
             fileName = fileService.writeToDirectory(noteDto.getImage());
         }
         var userId = (long) request.getSession().getAttribute("user_id");

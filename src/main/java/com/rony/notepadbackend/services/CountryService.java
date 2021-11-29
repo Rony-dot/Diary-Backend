@@ -23,7 +23,7 @@ public class CountryService {
         return countryRepository.findAll();
     }
 
-    public Country getById(long id){
+    public Country getById(Long id){
         return countryRepository.getById(id);
     }
 

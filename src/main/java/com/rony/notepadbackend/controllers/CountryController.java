@@ -19,7 +19,7 @@ public interface CountryController {
 
     @ApiOperation(
             value = "Get All Countries",
-            httpMethod = "POST"
+            httpMethod = "GET"
     )
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success"),
